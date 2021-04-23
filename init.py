@@ -14,6 +14,13 @@ def get_page(word):
     else:
         return None
 
-def save_item(path, text):
-    with open(path + "/" + str(uuid.uuid4()) + ".summary", "w+") as out:
-        out.write(text)
+def save_item(path, page):
+    uid = str(uuid.uuid4())
+
+    with open(path + "/" + uid + ".summary", "w+") as out:
+        out.write(page.summary)
+        out.close()
+
+    with open(path + "/" + uid + ".text", "w+") as out:
+        out.write(page.text)
+        out.close()

@@ -24,13 +24,14 @@ def main():
             os.mkdir(args.name + "/" + (text_files_dir))
         except:
             print("Каталог набора данных уже существует")
-
-        for word in args.words.split(","):
-            page = get_page(word)
-            if page:
-                save_item(args.name + "/" + text_files_dir, page.summary)
-            else:
-                print("Слово \"" + word + "\" не определено")
+        
+        if len(args.words) > 0:
+            for word in args.words.split(","):
+                page = get_page(word)
+                if page:
+                    save_item(args.name + "/" + text_files_dir, page)
+                else:
+                    print("Слово \"" + word + "\" не определено")
 
     elif args.action == 'analyze':
         create_dataframe(args.name, text_files_dir)

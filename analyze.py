@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pandas
 import uuid
+import csv
 
 def  create_dataframe(name, text_files_dir):
     if os.path.exists(name + "/" + name + ".csv"):
@@ -16,8 +16,9 @@ def  create_dataframe(name, text_files_dir):
             for line in open(text_file, 'r+').readlines():
                 if line.find('—') > 0 and line[0].isupper():
                     data.append([text_file.name.split('.')[0], uuid.uuid4(), line])
- 
-
-    df = pandas.DataFrame(data, columns=["root_id", "result_id", "text"])
-
-    df.to_csv(name + "/" + name + ".csv", index=False)
+    
+    
+    with open(name + "/" + name + ".csv", 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        for item in data:
+            csv_writer.writerow([item])
